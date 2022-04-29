@@ -85,9 +85,7 @@ Show the density distribution of both input features with the 2D plot as shown i
 
 TIP: Use geom_tile() to generate the 2D plot. Set width and height to avoid holes. 
 
-## QUESTION:
 
-Interpret the results.
 
 
 ```{r}
@@ -109,6 +107,19 @@ for(i in 1:nrow(th)){
 
 ```
 
+```{r}
+th2 = th
+th2$temp = round(th2$temp/6)*6
+th2$hum = round(th2$hum/6)*6
+ggplot(data = th2, aes(x=temp,y=hum,fill=p)) + geom_tile() + geom_rug(mapping=aes(x=th$temp),sides = "b",inherit.aes=F)+ geom_rug(mapping=aes(y=th$hum),sides = "l",inherit.aes=F) + labs(x = "Temperature", y="Humidity")
+```
+
+
+## QUESTION:
+
+Interpret the results.
+
+We can deduce from this plot that the most important variable in the prediction of bike rents is the temperature. If we observe the higer temperatures we can say with confidence that they are related with a higer number of bikes. We are not so sure about the lower temperatures because we don't have enough data, but it looks like a lower temperature is related with lower bikes rents. We can also observe that the humidity even though it is not as relevant, it also has a subtle influence in the number of bikes: when we observe really high humidity, the number of bikes decreases, maybe because it implyes rain.
 
 ## EXERCISE:
 
