@@ -1,7 +1,13 @@
 ---
-title: "XAI 3: Model-Agnostic methods"
-output: html_notebook
+title: 'XAI 3: Model-Agnostic methods'
+output:
+  html_document:
+    df_print: paged
 ---
+
+**Jordi Caravaca Rostoll**
+
+**Pablo Riera Carda**
 
 ## EXERCISE:
 
@@ -71,7 +77,7 @@ In the "Days since 2011" plot, we can see wit confidence that previously, they r
 
 In the "Temperature" plot, we can also extract with confidence of our interpretations that this variable follows a quadratic relationship with the number of bikes rented, and we can see that the hotter the day is, the more bikes will be rented, but up to a limit when the number will descend if the day is too hot.
 
-In the "Humidity" one, we no longuer have confidence in the the low humidity days, as they don't have enough samples to extract data from them. From the interval where we have sufficient data, we can see that it has an inverse linear relationship with the number of rents, meaning that the low humidity favours high amounts of rents.
+In the "Humidity" one, we no longuer have confidence in the low humidity days, as they don't have enough samples to extract data from them. From the interval where we have sufficient data, we can see that it has an inverse linear relationship with the number of rents, meaning that the low humidity favours high amounts of rents.
 
 Finaly, with the "Wind speed" plot we can't assume anything from the higher-up end, as they have fewer samples than the rest of values. We also see that it has an inverse linear relationship with the number of bikes rented, meaning that higher wind speed reduced the number of bikes rented.
 
@@ -128,10 +134,6 @@ Use the partial dependence plot to visualize the relationships the model learned
 
 BE CAREFUL: due to the size, extract a set of random samples from the BBDD before generating the data for the Partial Dependency Plot. 
 
-## QUESTION:
-
-Analyse the influence of **bedrooms, bathrooms, sqft_living** and **floors** on the predicted price.
-
 
 ```{r}
 
@@ -156,4 +158,32 @@ for(c in names(results)[1:4])
 }
 
 ```
+
+
+
+```{r}
+
+p1 = ggplot(data = sampled) + geom_line(aes(x=bedrooms,y=results$bedrooms)) + geom_rug(mapping=aes(x=bedrooms),sides = "b",inherit.aes=F) + labs(x = "Bedrooms", y="Prediction")
+
+p2 = ggplot(data = sampled) + geom_line(aes(x=bathrooms,y=results$bathrooms)) + geom_rug(mapping=aes(x=bathrooms),sides = "b",inherit.aes=F) + labs(x = "Bathrooms", y="")
+
+p3 = ggplot(data = sampled) + geom_line(aes(x=sqft_living,y=results$sqft_living)) + geom_rug(mapping=aes(x=sqft_living),sides = "b",inherit.aes=F) + labs(x = "Sqft Living", y="")
+
+p4 = ggplot(data = sampled) + geom_line(aes(x=floors,y=results$floors)) + geom_rug(mapping=aes(x=floors),sides = "b",inherit.aes=F) + labs(x = "Floors", y="")
+
+grid.arrange(p1,p2,p3,p4,nrow=1) 
+```
+
+## QUESTION:
+
+Analyse the influence of **bedrooms, bathrooms, sqft_living** and **floors** on the predicted price.
+
+
+In the "Bedrooms" plot, we can see wit confidence that every number of bedrooms is more expensive than the three or four bedroom house, it could be caused because the offer is higher in houses with that amount of bedrooms.
+
+In the "Bathrooms" plot, we can also extract with confidence of our interpretations that the price increases exponentially as the amount of bathrooms increases. We are not sure how to interpret those decimal values in this plot.
+
+In the "Sqft Living" one, we no longuer have confidence in the bigger livingrooms, as they don't have enough samples to extract data from. From the interval where we have sufficient data, we can see that it has a linear relationship with the price.
+
+Finaly, with the "Floors" plot we also see that it has a inear relationship with the price, meaning that more floors increases price. We are not sure how to interpret those decimal values in this plot.
 
