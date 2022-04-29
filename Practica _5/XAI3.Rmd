@@ -67,6 +67,13 @@ p4 = ggplot(data = days_since) + geom_line(aes(x=windspeed,y=results$windspeed))
 grid.arrange(p1,p2,p3,p4,nrow=1) 
 ```
 
+In the "Days since 2011" plot, we can see wit confidence that previously, they rented more bikes than now, and this variable follows a more or less linear tendency
+
+In the "Temperature" plot, we can also extract with confidence of our interpretations that this variable follows a quadratic relationship with the number of bikes rented, and we can see that the hotter the day is, the more bikes will be rented, but up to a limit when the number will descend if the day is too hot.
+
+In the "Humidity" one, we no longuer have confidence in the the low humidity days, as they don't have enough samples to extract data from them. From the interval where we have sufficient data, we can see that it has an inverse linear relationship with the number of rents, meaning that the low humidity favours high amounts of rents.
+
+Finaly, with the "Wind speed" plot we can't assume anything from the higher-up end, as they have fewer samples than the rest of values. We also see that it has an inverse linear relationship with the number of bikes rented, meaning that higher wind speed reduced the number of bikes rented.
 
 ## EXERCISE:
 
